@@ -1,7 +1,7 @@
 package com.vault.lockedravault.service;
 
 import com.vault.lockedravault.model.NewUserDataRequest;
-import com.vault.lockedravault.model.UserDataForDomain;
+import com.vault.lockedravault.model.entity.UserDataForDomain;
 import com.vault.lockedravault.repository.PWRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ public class PWService {
         this.pwRepository = pwRepository;
     }
 
-    public List<UserDataForDomain> getAllDataForDomain() {
-        return pwRepository.findAll();
+    public List<UserDataForDomain> getAllDataForDomain(String userName) {
+        return pwRepository.findByUserName(userName);
     }
 
-    public UserDataForDomain saveNewPWData(NewUserDataRequest userData) {
-        UserDataForDomain newUserData = new UserDataForDomain(userData.domain(), userData.userNameForDomain(), userData.passwordForDomain());
+    public UserDataForDomain saveNewPWData(String userName, NewUserDataRequest userData) {
+        UserDataForDomain newUserData = new UserDataForDomain(userName, userData.domain(), userData.userNameForDomain(), userData.passwordForDomain(), userData.category());
         return pwRepository.save(newUserData);
     }
 }
