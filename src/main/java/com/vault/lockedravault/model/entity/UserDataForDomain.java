@@ -1,9 +1,7 @@
-package com.vault.lockedravault.model;
+package com.vault.lockedravault.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.vault.lockedravault.security.model.UserEntity;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -13,11 +11,23 @@ public class UserDataForDomain {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
+
+    @Column(nullable = false)
     private String domainUserName;
-    private String domain;
+
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "domain_id")
+    private DomainData domain;
+
+    @Column(nullable = false)
     private String domainPassword;
 
-    public UserDataForDomain(String domain, String domainUserName, String domainPassword) {
+    public UserDataForDomain(UserEntity userEntity, DomainData domain, String domainUserName, String domainPassword) {
+        this.userEntity = userEntity;
         this.domain = domain;
         this.domainUserName = domainUserName;
         this.domainPassword = domainPassword;
@@ -31,7 +41,7 @@ public class UserDataForDomain {
         return this.id;
     }
 
-    public String getDomain() {
+    public DomainData getDomain() {
         return this.domain;
     }
 
