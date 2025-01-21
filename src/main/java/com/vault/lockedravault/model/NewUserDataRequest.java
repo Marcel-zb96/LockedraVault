@@ -1,4 +1,5 @@
 package com.vault.lockedravault.model;
 
-public record NewUserDataRequest(String domain, String userNameForDomain, String passwordForDomain) {
+public record NewUserDataRequest(String domain, String userNameForDomain, String passwordForDomain, String category) {
+
 }
