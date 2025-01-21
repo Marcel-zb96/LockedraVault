@@ -1,5 +1,7 @@
 package com.vault.lockedravault.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.vault.lockedravault.security.model.UserEntity;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -11,27 +13,27 @@ public class UserDataForDomain {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
-    private String userName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String domainUserName;
 
-    @Column(nullable = false)
-    private String domain;
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "domain_id")
+    private DomainData domain;
 
     @Column(nullable = false)
     private String domainPassword;
 
-    @Column(nullable = false)
-    private String category;
-
-    public UserDataForDomain(String userName, String domain, String domainUserName, String domainPassword, String category) {
-        this.userName = userName;
+    public UserDataForDomain(UserEntity userEntity, DomainData domain, String domainUserName, String domainPassword) {
+        this.userEntity = userEntity;
         this.domain = domain;
         this.domainUserName = domainUserName;
         this.domainPassword = domainPassword;
-        this.category = category;
     }
 
     public UserDataForDomain() {
@@ -42,7 +44,7 @@ public class UserDataForDomain {
         return this.id;
     }
 
-    public String getDomain() {
+    public DomainData getDomain() {
         return this.domain;
     }
 

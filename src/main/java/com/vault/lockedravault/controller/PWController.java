@@ -2,7 +2,6 @@ package com.vault.lockedravault.controller;
 
 import com.vault.lockedravault.model.NewUserDataRequest;
 import com.vault.lockedravault.model.entity.UserDataForDomain;
-import com.vault.lockedravault.security.jwt.JwtUtils;
 import com.vault.lockedravault.service.PWService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,28 +13,19 @@ import java.util.List;
 public class PWController {
 
     private final PWService pwService;
-    private final JwtUtils jwtUtils;
 
     @Autowired
-    public PWController(PWService pwService, JwtUtils jwtUtils) {
+    public PWController(PWService pwService) {
         this.pwService = pwService;
-        this.jwtUtils = jwtUtils;
     }
 
     @GetMapping("/data/all")
     public List<UserDataForDomain> getUserDataForDomain(@CookieValue("accessToken") String token) {
-        String userName = extractUserNameFromToken(token);
-        System.out.println(userName);
-        return pwService.getAllDataForDomain(userName);
+        return pwService.getAllDataForDomain(token);
     }
 
     @PostMapping("/save")
-    public UserDataForDomain saveUserDataForDomain(@CookieValue("accessToken") String token, @RequestBody NewUserDataRequest userData) {
-        String userName = extractUserNameFromToken(token);
-        return pwService.saveNewPWData(userName, userData);
-    }
-
-    private String extractUserNameFromToken(String token) {
-        return jwtUtils.getUserNameForJwtToken(token);
+    public UserDataForDomain saveUserDataForDomain(@RequestBody NewUserDataRequest userData, @CookieValue("accessToken") String token) {
+        return pwService.saveNewPWData(userData, token);
     }
 }
