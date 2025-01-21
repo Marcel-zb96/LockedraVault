@@ -25,8 +25,9 @@ public class PWService {
         this.jwtUtils = jwtUtils;
     }
 
-    public List<UserDataForDomain> getAllDataForDomain() {
-        return pwRepository.findAll();
+    public List<UserDataForDomain> getAllDataForDomain(String token) {
+        UserEntity userEntity = getUserEntity(token);
+        return pwRepository.findByUserEntity(userEntity);
     }
 
     public UserDataForDomain saveNewPWData(NewUserDataRequest userData, String token) {

@@ -20,8 +20,8 @@ public class PWController {
     }
 
     @GetMapping("/data/all")
-    public List<UserDataForDomain> getUserDataForDomain() {
-        return pwService.getAllDataForDomain();
+    public List<UserDataForDomain> getUserDataForDomain(@CookieValue("accessToken") String token) {
+        return pwService.getAllDataForDomain(token);
     }
 
     @PostMapping("/save")

@@ -1,5 +1,6 @@
 package com.vault.lockedravault.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vault.lockedravault.security.model.UserEntity;
 import jakarta.persistence.*;
 
@@ -13,6 +14,7 @@ public class UserDataForDomain {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
@@ -20,6 +22,7 @@ public class UserDataForDomain {
     private String domainUserName;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "domain_id")
     private DomainData domain;
 
