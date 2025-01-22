@@ -18,6 +18,11 @@ public class UserDataForDomain {
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "category_id")
+    private CategoryData categoryData;
+
     @Column(nullable = false)
     private String domainUserName;
 
@@ -29,15 +34,15 @@ public class UserDataForDomain {
     @Column(nullable = false)
     private String domainPassword;
 
-    public UserDataForDomain(UserEntity userEntity, DomainData domain, String domainUserName, String domainPassword) {
+    public UserDataForDomain(UserEntity userEntity, CategoryData categoryData, DomainData domain, String domainUserName, String domainPassword) {
         this.userEntity = userEntity;
+        this.categoryData = categoryData;
         this.domain = domain;
         this.domainUserName = domainUserName;
         this.domainPassword = domainPassword;
     }
 
     public UserDataForDomain() {
-
     }
 
     public UUID getId() {
