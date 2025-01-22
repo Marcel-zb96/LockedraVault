@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-public class DomainData {
+public class Domain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -17,12 +17,12 @@ public class DomainData {
     @Column(nullable = false)
     private String url;
 
-    public DomainData(String domainName, String url) {
+    public Domain(String domainName, String url) {
         this.domainName = domainName;
         this.url = url;
     }
 
-    public DomainData() {
+    public Domain() {
     }
 
     public UUID getId() {

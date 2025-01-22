@@ -1,9 +1,12 @@
 package com.vault.lockedravault.repository;
 
-import com.vault.lockedravault.model.entity.DomainData;
+import com.vault.lockedravault.model.entity.Domain;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface DomainRepository extends JpaRepository<DomainData, Long> {
+public interface DomainRepository extends JpaRepository<Domain, Long> {
+    Optional<Domain> findByDomainName(String domainName);
 }

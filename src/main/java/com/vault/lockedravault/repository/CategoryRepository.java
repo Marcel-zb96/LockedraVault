@@ -1,9 +1,12 @@
 package com.vault.lockedravault.repository;
 
-import com.vault.lockedravault.model.entity.CategoryData;
+import com.vault.lockedravault.model.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface CategoryRepository extends JpaRepository<CategoryData, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+    Optional<Category> findByCategoryName(String categoryName);
 }
