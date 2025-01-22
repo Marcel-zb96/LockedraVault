@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-public class CategoryData {
+public class Category {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -14,11 +14,11 @@ public class CategoryData {
     @Column(nullable = false, unique = true)
     private String categoryName;
 
-    public CategoryData(String categoryName) {
+    public Category(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public CategoryData() {
+    public Category() {
     }
 
     public UUID getId() {
