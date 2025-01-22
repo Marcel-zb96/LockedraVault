@@ -1,6 +1,7 @@
 package com.vault.lockedravault.service;
 
 import com.vault.lockedravault.model.NewUserDataRequest;
+import com.vault.lockedravault.model.entity.CategoryData;
 import com.vault.lockedravault.model.entity.DomainData;
 import com.vault.lockedravault.model.entity.UserDataForDomain;
 import com.vault.lockedravault.repository.PWRepository;
@@ -32,9 +33,11 @@ public class PWService {
 
     public UserDataForDomain saveNewPWData(NewUserDataRequest userData, String token) {
         DomainData domain = new DomainData(userData.domainName(), userData.domainUrl());
+
+        CategoryData categoryData = new CategoryData(userData.categoryName());
         UserEntity userEntity = getUserEntity(token);
 
-        UserDataForDomain newUserData = new UserDataForDomain(userEntity, domain, userData.userNameForDomain(), userData.passwordForDomain());
+        UserDataForDomain newUserData = new UserDataForDomain(userEntity, categoryData, domain, userData.userNameForDomain(), userData.passwordForDomain());
         return pwRepository.save(newUserData);
     }
 
