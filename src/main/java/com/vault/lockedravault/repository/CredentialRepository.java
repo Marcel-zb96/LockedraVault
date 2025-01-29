@@ -12,6 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface CredentialRepository extends JpaRepository<UserCredentialsForDomain, Long> {
-    List<UserCredentialsForDomain> findAllByUserEntity(UserEntity userEntity);
-    Optional<UserCredentialsForDomain> findByUserEntityAndDomainAndCategoryAndDomainPasswordAndDomainUserName(UserEntity userEntity, Domain domain, Category category, String domainPassword, String domainUserName);
+    List<UserCredentialsForDomain> findAllByUserEntityUserName(String userName);
+    List<UserCredentialsForDomain>  findByUserEntityUserNameAndCategoryCategoryName(String userEntity_userName, String category_categoryName);
 }
