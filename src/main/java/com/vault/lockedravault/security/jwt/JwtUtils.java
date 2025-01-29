@@ -39,7 +39,7 @@ public class JwtUtils {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
-    public String getUserNameForJwtToken(String token) {
+    public String getUserNameFromJwtToken(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(key())

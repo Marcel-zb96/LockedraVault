@@ -2,6 +2,7 @@ package com.vault.lockedravault.service;
 
 import com.vault.lockedravault.model.entity.Domain;
 import com.vault.lockedravault.repository.DomainRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +22,9 @@ public class DomainService {
         return this.domainRepository.findAll();
     }
 
+    @Transactional
     public Domain saveOrGetDomain(String domainName, String domainUrl) {
-        try {
-            Domain newDomain = new Domain(domainName, domainUrl);
-            return domainRepository.save(newDomain);
-        } catch (Exception e) {
-            // Catch the exception if the entity already saved in the DB
-            return domainRepository.findByDomainName(domainName).orElseThrow();
-        }
+        return domainRepository.findByDomainName(domainName)
+                .orElseGet(() -> domainRepository.save(new Domain(domainName, domainUrl)));
     }
 }

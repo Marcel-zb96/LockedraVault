@@ -2,6 +2,7 @@ package com.vault.lockedravault.service;
 
 import com.vault.lockedravault.model.entity.Category;
 import com.vault.lockedravault.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +22,9 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    @Transactional
     public Category saveOrGetCategory(String categoryName) {
-        try {
-            Category newCategory = new Category(categoryName);
-            return categoryRepository.save(newCategory);
-        } catch (Exception e) {
-            // Catch the exception if the entity already saved in the DB
-            return categoryRepository.findByCategoryName(categoryName).orElseThrow();
-        }
+            return categoryRepository.findByCategoryName(categoryName)
+                    .orElseGet(() -> categoryRepository.save(new Category(categoryName)));
     }
 }

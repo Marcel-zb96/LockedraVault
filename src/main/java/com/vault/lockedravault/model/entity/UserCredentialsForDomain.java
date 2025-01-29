@@ -18,7 +18,7 @@ public class UserCredentialsForDomain {
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "category_id")
     private Category category;
@@ -26,7 +26,7 @@ public class UserCredentialsForDomain {
     @Column(nullable = false)
     private String domainUserName;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "domain_id")
     private Domain domain;

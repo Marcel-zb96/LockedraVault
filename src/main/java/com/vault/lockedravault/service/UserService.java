@@ -23,7 +23,7 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public UserEntity getUser(String userName) {
+    public UserEntity getUserEntity(String userName) {
         return userRepository.getUserEntityByUserName(userName).orElse(null);
     }
 }
