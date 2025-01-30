@@ -2,8 +2,6 @@ package com.vault.lockedravault.service;
 
 import com.vault.lockedravault.model.entity.Category;
 import com.vault.lockedravault.repository.CategoryRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,13 +22,7 @@ class CategoryServiceTest {
     private CategoryRepository categoryRepository;
     @InjectMocks
     private CategoryService categoryService;
-    @BeforeEach
-    void setUp() {
-    }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void getAllCategory_happyCase() {
@@ -44,7 +36,7 @@ class CategoryServiceTest {
     }
 
     @Test
-    void saveOrGetCategory_happyCase() {
+    void saveOrGetCategory_categoryExists() {
         String testCategoryName = "test_category";
         Category testCategory = new Category(testCategoryName);
 
@@ -58,7 +50,7 @@ class CategoryServiceTest {
     }
 
     @Test
-    void saveOrGetCategory_noNameParameter() {
+    void saveOrGetCategory_categoryDoesNotExists() {
         String testCategoryName = "test_category";
         Category testCategory = new Category(testCategoryName);
 
