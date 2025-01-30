@@ -5,6 +5,7 @@ import com.vault.lockedravault.security.model.SignUpRequest;
 import com.vault.lockedravault.security.model.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -34,14 +35,20 @@ class UserServiceTest {
         String testUserName = "testUserName";
 
         SignUpRequest testSignUpRequest = new SignUpRequest(testUserName, testEmail, testPassword);
-        UserEntity testUserEntity = new UserEntity(testUserName, testEmail, testPassword);
 
         when(encoder.encode(testPassword)).thenReturn(testPassword);
-        when(userRepository.save(testUserEntity)).thenReturn(testUserEntity);
 
         userService.createUser(testSignUpRequest);
 
-        verify(userRepository, times(1)).save(testUserEntity);
+        ArgumentCaptor<UserEntity> userEntityCaptor = ArgumentCaptor.forClass(UserEntity.class);
+
+        verify(userRepository, times(1)).save(userEntityCaptor.capture());
+
+        UserEntity capturedUser = userEntityCaptor.getValue();
+
+        assertEquals(testUserName, capturedUser.getUserName());
+        assertEquals(testEmail, capturedUser.getEmail());
+        assertEquals(testPassword, capturedUser.getPassword());
     }
 
     @Test
