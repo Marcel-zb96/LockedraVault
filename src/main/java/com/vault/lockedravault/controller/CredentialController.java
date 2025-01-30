@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/credential")
 public class CredentialController {
 
     private final CredentialService credentialService;
@@ -21,17 +21,17 @@ public class CredentialController {
         this.credentialService = credentialService;
     }
 
-    @GetMapping("/credential/all")
+    @GetMapping("/all")
     public List<UserCredentialsForDomain> getAllUserCredentials(@CookieValue("accessToken") String token) {
         return credentialService.getAllUserCredentials(token);
     }
 
-    @GetMapping("credential/{category}")
+    @GetMapping("/{category}")
     public List<UserCredentialsForDomain> getUserCredentialsByCategory(@CookieValue("accessToken") String token, @PathVariable String category) {
         return credentialService.getUserCredentialsByCategory(token, category);
     }
 
-    @PostMapping("/credential/save")
+    @PostMapping("/save")
     public UserCredentialsForDomain saveUserDataForDomain(@RequestBody NewUserDataRequest userData, @CookieValue("accessToken") String token) {
         return credentialService.saveOrGetUserCredential(userData, token);
     }
