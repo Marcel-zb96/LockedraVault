@@ -7,7 +7,9 @@
 <p align="center">
 	<img src="https://img.shields.io/badge/Java-white?style=flat&color=grey" alt="Java">
   <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=springboot&logoColor=black&color=green" alt="Spring Boot">
-	<img src="https://img.shields.io/badge/SQLite-4169E1?style=flat&logo=sqlite&logoColor=white%22%20" alt="SQLite">
+	<img src="https://img.shields.io/badge/SQLite-4169E1?style=flat&logo=sqlite&logoColor=white" alt="SQLite">
+	<img src="https://img.shields.io/badge/JUnit5-25A162?style=flat&logo=junit5&logoColor=white" alt="JUnit5">
+	<img src="https://img.shields.io/badge/Mockito-8D6748?style=flat&logo=mocha&logoColor=white" alt="Mockito">
 </p>
 <hr>
 
