@@ -19,7 +19,7 @@ public class DomainService {
     }
 
     public List<Domain> getAllDomain() {
-        return this.domainRepository.findAll();
+        return domainRepository.findAll();
     }
 
     @Transactional
