@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CredentialService {
@@ -66,6 +67,10 @@ public class CredentialService {
     private Category getCategory(String categoryName) {
         Optional<Category> category = categoryRepository.findByCategoryName(categoryName);
         return category.orElseGet(() -> new Category(categoryName));
+    }
+
+    public void deleteCredential(String id) {
+        credentialRepository.deleteById(UUID.fromString(id));
     }
 }
 
